@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+ASGI_APPLICATION = 'socialmedia.asgi.application'
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages', 'rest_framework',
     'rest_framework_simplejwt',
-    'django.contrib.staticfiles','accounts', 'corsheaders',
+    'django.contrib.staticfiles','accounts', 'corsheaders','channels', 'chat',
 ]
 
 
@@ -49,6 +49,17 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

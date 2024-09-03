@@ -56,3 +56,13 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['last_name'] = user.last_name
 
         return token
+    
+
+# accounts/serializers.py
+from rest_framework import serializers
+from .models import CustomUser
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'username', 'email']  # Add any other fields you want to expose

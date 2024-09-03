@@ -54,3 +54,15 @@ class CustomLoginView(generics.GenericAPIView):
             return Response(response_data, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+        
+
+# accounts/views.py
+from rest_framework import generics
+from .models import CustomUser
+from .serializers import UserSerializer
+from rest_framework.permissions import IsAuthenticated
+
+class UserListView(generics.ListAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
