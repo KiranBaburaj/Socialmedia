@@ -92,10 +92,19 @@ WSGI_APPLICATION = 'socialmedia.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',  # Use PostgreSQL
+        'NAME': 'bw1',  # Your database name
+        'USER': 'postgres',  # Your PostgreSQL username
+        'PASSWORD': '916916',  # Your PostgreSQL password
+        'HOST': 'localhost',  # Set to empty string for localhost
+        'PORT': '5432',  # Default PostgreSQL port
     }
 }
 
