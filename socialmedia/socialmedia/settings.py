@@ -52,11 +52,18 @@ REST_FRAMEWORK = {
 
 CHANNEL_LAYERS = {
     'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
-        },
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
     },
+}
+
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=300),  # Access token is valid for 30 minutes
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=6),    # Refresh token is valid for 1 day
+    'ROTATE_REFRESH_TOKENS': True,                 # Rotate refresh tokens on use
+    'BLACKLIST_AFTER_ROTATION': True,              # Blacklist old refresh tokens after rotation
 }
 
 

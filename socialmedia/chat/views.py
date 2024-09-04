@@ -52,3 +52,13 @@ class MessageViewSet(viewsets.ModelViewSet):
             raise serializers.ValidationError({"error": "You are not a participant in this chat."})
         
         serializer.save(sender=self.request.user, chat=chat)
+from rest_framework import viewsets
+from rest_framework.response import Response
+from .models import Message
+from .serializers import MessageSerializer
+
+class ChatMessageViewSet(viewsets.ViewSet):
+    def list(self, request, chat_id=None):
+        messages = Message.objects.filter(chat_id=chat_id)
+        serializer = MessageSerializer(messages, many=True)
+        return Response(serializer.data)
