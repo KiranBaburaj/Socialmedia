@@ -7,7 +7,7 @@ from channels.auth import AuthMiddlewareStack
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'socialmedia.settings')
 django.setup()
 
-from chat.routing import websocket_urlpatterns
+from videocall.routing import websocket_urlpatterns
 
 application = ProtocolTypeRouter({
     "http": get_asgi_application(),

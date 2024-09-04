@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages', 'rest_framework',
     'rest_framework_simplejwt',
-    'django.contrib.staticfiles','accounts', 'corsheaders','channels', 'chat',
+    'django.contrib.staticfiles','accounts', 'corsheaders','channels', 'chat','videocall',
 ]
 
 
@@ -50,12 +50,13 @@ REST_FRAMEWORK = {
     ),
 }
 
+# settings.py
+
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels.layers.InMemoryChannelLayer',
     },
 }
-
 
 from datetime import timedelta
 
@@ -118,7 +119,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',  # Use PostgreSQL
-        'NAME': 'bw1',  # Your database name
+        'NAME': 'bw2',  # Your database name
         'USER': 'postgres',  # Your PostgreSQL username
         'PASSWORD': '916916',  # Your PostgreSQL password
         'HOST': 'localhost',  # Set to empty string for localhost
