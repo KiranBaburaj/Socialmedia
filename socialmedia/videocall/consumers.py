@@ -1,5 +1,3 @@
-# call/consumers.py
-
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 
@@ -19,17 +17,37 @@ class VideoCallConsumer(AsyncWebsocketConsumer):
         message_type = text_data_json['type']
         message_data = text_data_json['data']
 
+        # Use a consistent naming convention for the channel layer
+        channel_message_type = f'send_{message_type.replace("-", "_")}'
+
         await self.channel_layer.group_send(self.room_group_name, {
-            'type': message_type,
+            'type': channel_message_type,
             'data': message_data
         })
 
-    async def send_message(self, event):
-        message_data = event['data']
-        await self.send(text_data=json.dumps({'data': message_data}))
+    async def send_ready(self, event):
+        await self.send(text_data=json.dumps({
+            'type': 'ready',
+            'data': event['data']
+        }))
 
+    async def send_offer(self, event):
+        await self.send(text_data=json.dumps({
+            'type': 'offer',
+            'data': event['data']
+        }))
 
+    async def send_answer(self, event):
+        await self.send(text_data=json.dumps({
+            'type': 'answer',
+            'data': event['data']
+        }))
 
+    async def send_ice_candidate(self, event):
+        await self.send(text_data=json.dumps({
+            'type': 'ice-candidate',
+            'data': event['data']
+        }))
 # socialmedia/consumers.py
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
