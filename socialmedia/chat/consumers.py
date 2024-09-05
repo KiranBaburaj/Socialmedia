@@ -3,7 +3,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from django.contrib.auth import get_user_model
 from django.apps import apps
-from django.db.models import Q  # Import Q here
+from django.db.models import Q
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -11,14 +11,18 @@ class ChatConsumer(AsyncWebsocketConsumer):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = f'chat_{self.room_name}'
 
+        print(f"User {self.user} connecting to room {self.room_group_name}")
+
         await self.channel_layer.group_add(
             self.room_group_name,
             self.channel_name
         )
 
         await self.accept()
+        print(f"User {self.user} accepted in room {self.room_group_name}")
 
     async def disconnect(self, close_code):
+        print(f"User {self.user} disconnecting from room {self.room_group_name}")
         await self.channel_layer.group_discard(
             self.room_group_name,
             self.channel_name
@@ -47,6 +51,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 }
             )
         except Exception as e:
+            print(f"Error receiving message: {str(e)}")  # Log error
             await self.send(text_data=json.dumps({
                 'error': str(e)
             }))
@@ -77,7 +82,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 Q(user1=sender, user2=receiver) | Q(user1=receiver, user2=sender)
             )
         except Chat.DoesNotExist:
-            # Create a new chat room if it does not exist
             new_chat = Chat.objects.create(user1=sender, user2=receiver)
             return new_chat
 
