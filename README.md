@@ -1,38 +1,84 @@
-# Socialmedia
-
-# Django WebSocket and JWT Authentication Backend
+# Social Media Backend
 
 ## Overview
 
-This backend is built using **Django** and **Django Channels** to provide API endpoints for user registration, authentication (JWT), real-time communication via WebSockets, and room creation. It is a part of a full-stack application with a React frontend.
+This repository is the backend for a social media platform built using **Django** and **Django REST Framework**. It provides API endpoints for user authentication, profile management, room creation, and WebSocket-based real-time communication.
 
 ## Technologies Used
 
-- **Python**: Backend programming language.
-- **Django**: Web framework for building the backend.
-- **Django Rest Framework (DRF)**: For creating APIs.
-- **Django Channels**: For WebSocket support and real-time communication.
-- **JWT (JSON Web Tokens)**: For user authentication.
-- **Redis**: Used as the channel layer for WebSocket handling.
+- **Django**: Web framework for backend.
+- **Django REST Framework**: For building RESTful APIs.
+- **Django Channels**: For handling WebSockets.
+- **JWT**: For secure authentication.
+- **Redis**: For WebSocket message handling.
 
 ## Features
 
-- User Registration (via REST API)
-- User Login (via REST API with JWT Authentication)
-- WebSockets for real-time communication
-- Room creation and management for WebSocket communication
+- User Registration and Authentication (JWT-based)
+- Room Creation
+- Real-time WebSocket Messaging
+- API Endpoints for User and Profile Management
 
 ## Prerequisites
 
-Make sure you have the following installed:
+- **Python 3.x**
+- **Redis**: Required for WebSocket messaging.
+- **PostgreSQL** (or any other database of your choice).
 
-- Python 3.x
-- Redis (for handling WebSocket communication)
+## Setup Instructions
 
-## Getting Started
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/KiranBaburaj/Socialmedia.git
+   cd Socialmedia
 
-### 1. Clone the Repository
 
+
+
+
+2. **Create a virtual environment**:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # For Windows, use: venv\Scripts\activate
+   ```
+
+3. **Install dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Configure environment variables**:
+   Create a `.env` file in the project root and set variables such as:
+   ```bash
+   SECRET_KEY=your_secret_key
+   DEBUG=True
+   DATABASE_URL=your_database_url
+   ```
+
+5. **Run migrations**:
+   ```bash
+   python manage.py migrate
+   ```
+
+6. **Start Redis server** (ensure Redis is installed):
+   ```bash
+   redis-server
+   ```
+
+7. **Run the Django development server**:
+   ```bash
+   python manage.py runserver
+   ```
+
+## Running Tests
+
+To run the tests:
 ```bash
-git clone <repository-url>
-cd backend
+python manage.py test
+```
+
+## Deployment
+
+To deploy the application, you can use platforms like **Heroku**, **AWS**, or **DigitalOcean**. Make sure to configure the environment variables and Redis on the deployment server.
+
+
