@@ -4,7 +4,7 @@
 
 This repository is the backend for a social media platform built using **Django** and **Django REST Framework**. It provides API endpoints for user authentication, profile management, room creation, and WebSocket-based real-time communication.
 
-## Technologies Used
+## Technologies Used :
 
 - **Django**: Web framework for backend.
 - **Django REST Framework**: For building RESTful APIs.
